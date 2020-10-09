@@ -1,0 +1,9 @@
+services:
+  ml-workspace:
+    public: true
+    image: mltooling/ml-workspace-minimal
+    replicas: 1
+    ports:
+      - 8080
+    volumes:
+    -  /workspace
