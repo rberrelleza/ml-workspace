@@ -44,15 +44,24 @@ The ML workspace is an all-in-one web-based IDE specialized for machine learning
 
 ## Getting Started
 
+
+### Run it in Okteto Cloud
+
+[![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://cloud.okteto.com/deploy)
+
+Your instance will come preconfigured with SSL, Authentication and a Persistent Volume
+
+### Run it in Docker
 <p>
 <a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ml-tooling/ml-workspace/master/deployment/play-with-docker/docker-compose.yml" title="Docker Image Metadata" target="_blank"><img src="https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png" alt="Try in PWD" width="100px"></a>
 </p>
 
-### Prerequisites
+
+#### Prerequisites
 
 The workspace requires **Docker** to be installed on your machine ([📖 Installation Guide](https://docs.docker.com/install/#supported-platforms)).
 
-### Start single instance
+#### Start single instance
 
 Deploying a single workspace instance is as simple as:
 
@@ -78,7 +87,7 @@ docker run -d \
 
 This command runs the container in background (`-d`), mounts your current working directory into the `/workspace` folder (`-v`), secures the workspace via a provided token (`--env AUTHENTICATE_VIA_JUPYTER`), provides 512MB of shared memory (`--shm-size`) to prevent unexpected crashes (see [known issues section](#known-issues)), and keeps the container running even on system restarts (`--restart always`). You can find additional options for docker run [here](https://docs.docker.com/engine/reference/commandline/run/) and workspace configuration options in [the section below](#Configuration).
 
-### Configuration Options
+#### Configuration Options
 
 The workspace provides a variety of configuration options that can be used by setting environment variables (via docker run option: `--env`).
 
@@ -158,7 +167,7 @@ The workspace provides a variety of configuration options that can be used by se
 
 </details>
 
-### Persist Data
+#### Persist Data
 
 To persist the data, you need to mount a volume into `/workspace` (via docker run option: `-v`).
 
@@ -168,14 +177,14 @@ To persist the data, you need to mount a volume into `/workspace` (via docker ru
 The default work directory within the container is `/workspace`, which is also the root directory of the Jupyter instance. The `/workspace` directory is intended to be used for all the important work artifacts. Data within other directories of the server (e.g., `/root`) might get lost at container restarts.
 </details>
 
-### Enable Authentication
+#### Enable Authentication
 
 We strongly recommend enabling authentication via one of the following two options. For both options, the user will be required to authenticate for accessing any of the pre-installed tools.
 
 <details>
 <summary>Details (click to expand...)</summary>
 
-#### Token-based Authentication via Jupyter (recommended)
+##### Token-based Authentication via Jupyter (recommended)
 
 Activate the token-based authentication based on the authentication implementation of Jupyter via the `AUTHENTICATE_VIA_JUPYTER` variable:
 
@@ -185,7 +194,7 @@ docker run -p 8080:8080 --env AUTHENTICATE_VIA_JUPYTER="mytoken" mltooling/ml-wo
 
 You can also use `<generated>` to let Jupyter generate a random token that is printed out on the container logs. A value of `true` will not set any token but activate that every request to any tool in the workspace will be checked with the Jupyter instance if the user is authenticated. This is used for tools like JupyterHub, which configures its own way of authentication.
 
-#### Basic Authentication via Nginx
+##### Basic Authentication via Nginx
 
 Activate the basic authentication via the `WORKSPACE_AUTH_USER` and `WORKSPACE_AUTH_PASSWORD` variable:
 
@@ -197,7 +206,7 @@ The basic authentication is configured via the nginx proxy and might be more per
 
 </details>
 
-### Enable SSL/HTTPS
+#### Enable SSL/HTTPS
 
 We recommend enabling SSL so that the workspace is accessible via HTTPS (encrypted communication). SSL encryption can be activated via the `WORKSPACE_SSL_ENABLED` variable. 
 
@@ -220,7 +229,7 @@ If you want to host the workspace on a public domain, we recommend to use [Let's
 
 </details>
 
-### Limit Memory & CPU
+#### Limit Memory & CPU
 
 By default, the workspace container has no resource constraints and can use as much of a given resource as the host’s kernel scheduler allows. Docker provides ways to control how much memory, or CPU a container can use, by setting runtime configuration flags of the docker run command.
 
