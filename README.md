@@ -49,7 +49,7 @@ The ML workspace is an all-in-one web-based IDE specialized for machine learning
 
 [![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://cloud.okteto.com/deploy)
 
-Your instance will come preconfigured with SSL, Authentication and a Persistent Volume
+Your instance will run in [Okteto Cloud](https://okteto.com), and it'll be automatically configured with SSL and a Persistent Volume.
 
 ### Run it in Docker
 <p>
